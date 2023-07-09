@@ -1,5 +1,4 @@
 require 'pry'
-require_relative './entities/shows.rb'
 require_relative './entities/seats.rb'
 class Movie
     def shows show
@@ -44,35 +43,10 @@ class Movie
          selected_seats.split(",").each do |selected_seat|
             return false, "#{selected_seat} Not available, Please select different seats" if not  flattened_seats.include? selected_seat
          end
-
     end
 
     def validate_shows number_of_shows, show
         raise "There are #{number_of_shows.count} shows available, please enter from #{number_of_shows.first} to #{number_of_shows.last} shows" unless number_of_shows.include? show
     end
-
 end
-
-# categories = {
-#       "Platinum" => "A",
-#       "Gold" => "B",
-#       "Silver" => "C"
-# }
-# number_of_seats = 9
-# seats = Movie.build_seats categories, number_of_seats
-# confirmed = "Yes"
-
-# while confirmed == "Yes"
-#     puts "Enter Show no:"
-#     show = gets.chomp.to_i
-#     movie = Movie.new
-#     show = movie.shows show
-#     available_seats = Movie.show_available_seats seats, show
-#     puts "Enter Seats:"
-#     selected_seat = gets.chomp.upcase
-#     booked_seat = movie.book_seat show, selected_seat, seats
-#     p booked_seat
-#     puts "Would you like to continue (Yes/No):"
-#     confirmed =  gets.chomp.capitalize
-# end
 
