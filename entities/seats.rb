@@ -21,8 +21,7 @@ module Theater
                                     row << v
                                 else                                    
                                     row << ""
-                                end
-                                
+                                end   
                             end
                             puts row.join(" ")
                         end
@@ -31,6 +30,7 @@ module Theater
             end
 
             def self.book_seat show_no, selected_seats, seats
+                booked_seat = []
                 seats.seat_categories_list.each do |show|
                     if show_no == show[:show]
                         selected_seats.split(",").each do |selected_seat|
@@ -38,12 +38,13 @@ module Theater
                                 next if selected_seat.split("")[0] != seat_category[1].first[0].split("")[0]
                                 if seat_category[1][selected_seat] == true
                                     seat_category[1][selected_seat] = false
+                                    booked_seat << selected_seat
                                 end
                             end
                         end
                     end
                 end
-                return "Successfully Booked - Show #{show_no}"
+                return true, "Successfully Booked - Show #{show_no}"
             end
         end
     end

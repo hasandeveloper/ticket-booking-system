@@ -1,5 +1,6 @@
 require 'pry'
 require_relative './entities/seats.rb'
+require_relative './entities/billing.rb'
 class Movie
     def shows show
         number_of_shows = Theater::Entities::Shows.all
@@ -18,9 +19,19 @@ class Movie
     def book_seat show, selected_seats, seats
         status, message = validate_seat(show, selected_seats, seats) 
         if status == false
-            return message
+            return status, message
         end
         Theater::Entities::Seats.book_seat(show, selected_seats, seats)
+    end
+
+    def self.calculate_seats selected_seat, price
+        billing = Theater::Entities::Billing.new(price)
+        billing.calculate_seats selected_seat
+    end
+
+    def self.calculate_total_sales seats, price
+        billing = Theater::Entities::Billing.new(price)
+        billing.calculate_total_sales seats
     end
 
     private 

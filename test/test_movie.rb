@@ -57,15 +57,15 @@ RSpec.describe Movie do
       end
 
       before do
-        @booked_seat = movie.book_seat show_no, "#{seat_1},#{seat_2}", @seats
+        @booked_seat, @message = movie.book_seat show_no, "#{seat_1},#{seat_2}", @seats
       end
 
       it "Should booked when available" do
-        expect(@booked_seat).to eq("Successfully Booked - Show #{show_no}")
+        expect(@message).to eq("Successfully Booked - Show #{show_no}")
       end
 
       it "Should not book if already seat is booked" do
-        message = movie.book_seat show_no, "#{seat_1},#{seat_2}", @seats
+        booked_seat, message = movie.book_seat show_no, "#{seat_1},#{seat_2}", @seats
         expect(message).to eq("#{seat_1} Not available which is already booked, Please select different seats")
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe Movie do
     context "When Validate" do
       it "should show please enter proper seat number as mentioned above with comma seperated" do
         seat = "dasdsa"
-        message = movie.book_seat 1, seat, seats
+        booked_seat, message = movie.book_seat 1, seat, seats
         expect(message).to eq("#{seat} Not available, Please select different seats")
       end
     end

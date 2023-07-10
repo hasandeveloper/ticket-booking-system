@@ -4,6 +4,11 @@ categories = {
       "Gold" => "B",
       "Silver" => "C"
 }
+price = {
+    "A" => 320,
+    "B" => 280,
+    "C" => 240
+}
 number_of_seats = 9
 seats = Movie.build_seats categories, number_of_seats
 confirmed = "Yes"
@@ -16,10 +21,18 @@ while confirmed == "Yes"
     available_seats = Movie.show_available_seats seats, show
     puts "Enter Seats:"
     selected_seat = gets.chomp.upcase
-    booked_seat = movie.book_seat show, selected_seat, seats
-    p booked_seat
+    booked_seat, message = movie.book_seat show, selected_seat, seats
+    if booked_seat
+        puts "Print: #{message}"
+        Movie.calculate_seats selected_seat, price
+    else
+        puts "Print: #{message}"
+    end
     puts "Would you like to continue (Yes/No):"
     confirmed =  gets.chomp.capitalize
+    if confirmed == "No"
+        Movie.calculate_total_sales seats, price
+    end
 end
 
 
